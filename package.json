@@ -1,0 +1,24 @@
+{
+  "name": "ondemandserviceprovider-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gShakya1997/ondemandserviceprovider-Backend.git"
+  },
+  "keywords": [
+    "on",
+    "demand",
+    "service"
+  ],
+  "author": "Undisputed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gShakya1997/ondemandserviceprovider-Backend/issues"
+  },
+  "homepage": "https://github.com/gShakya1997/ondemandserviceprovider-Backend#readme"
+}
