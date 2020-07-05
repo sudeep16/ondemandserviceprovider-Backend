@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const userRouter = require("./routes/users");
+const serviceAdsRouter = require("./routes/serviceAds");
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,7 @@ app.use(express.static(__dirname + "/public"));
 
 //routes
 app.use("/users", userRouter);
+app.use("/serviceAds",serviceAdsRouter);
 
 //database config
 mongoose.connect(process.env.URL, {

@@ -51,7 +51,7 @@ router.post("/login", (req, res, next) => {
                     return next(err);
                 }
                 let token = jwt.sign({
-                    _id : user._id
+                    _id: user._id
                 }, process.env.SECRET);
                 res.json({
                     status: "Login successful",
@@ -62,5 +62,16 @@ router.post("/login", (req, res, next) => {
         }
     }).catch(next);
 });
+
+router.route("/:firstName")
+    .get((req, res, next) => {
+        User.find({ firstName: req.params.firstName })
+            .then((user) => {
+                res.json(user);
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
 
 module.exports = router;
