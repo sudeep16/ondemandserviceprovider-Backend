@@ -28,10 +28,6 @@ const serviceAdSchema = new mongoose.Schema({
     price:{
         type:String,
         required:true
-    },
-    serviceProvider:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
     }
 });
 
