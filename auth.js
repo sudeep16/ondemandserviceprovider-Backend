@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 const User = require("./models/users");
 
-module.exports.verifyUser = ((req,res,next)=>{
+module.exports.verifyUser = ((req, res, next) => {
     let authHeader = req.headers.authorization;
-    if(!authHeader) {
+    if (!authHeader) {
         let err = new Error("Bearer token is not set");
         err.status = 401;
         return next(err);
@@ -12,13 +12,14 @@ module.exports.verifyUser = ((req,res,next)=>{
     let data;
     try {
         data = jwt.verify(token, process.env.SECRET);
+        console.log(data);
     } catch (err) {
         throw new Error("Token could not be verified");
     }
-    
+
     User.findById(data._id)
         .then((users) => {
-            req.users = users;
+            req.user = users;
             next();
         });
 });

@@ -16,7 +16,7 @@ app.use(express.static(__dirname + "/public"));
 
 //routes
 app.use("/users", userRouter);
-app.use("/serviceAds", serviceAdsRouter);
+app.use("/serviceAds", auth.verifyUser, serviceAdsRouter);
 
 //database config
 mongoose.connect(process.env.URL, {

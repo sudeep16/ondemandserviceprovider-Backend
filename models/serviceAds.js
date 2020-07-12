@@ -3,31 +3,35 @@ const mongoose = require("mongoose");
 const serviceAdSchema = new mongoose.Schema({
     category: {
         type: String,
-        required:true
+        required: true
     },
-    description:{
+    description: {
         type: String,
         required: true
     },
-    openingTime:{
+    openingTime: {
         type: String,
-        required:true
+        required: true
     },
     closingTime: {
         type: String,
         required: true
     },
-    daysFrom:{
+    daysFrom: {
         type: String,
-        required:true
+        required: true
     },
-    daysTo:{
+    daysTo: {
         type: String,
-        required:true
+        required: true
     },
-    price:{
-        type:String,
-        required:true
+    price: {
+        type: String,
+        required: true
+    },
+    adOwner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 });
 
