@@ -8,7 +8,7 @@ const router = express.Router();
 router.route("/")
     .post((req, res, next) => {
         let serviceAds = new ServiceAds(req.body);
-        serviceAds.adOwner = req.users._id;
+        serviceAds.adOwner = req.user._id;
         serviceAds.save()
             .then((serviceAds) => {
                 res.statusCode = 201;
