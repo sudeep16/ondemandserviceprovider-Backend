@@ -1,9 +1,9 @@
 const express = require("express");
 const ServiceAds = require("../models/serviceAds");
-const serviceAds = require("../models/serviceAds");
+const auth = require("../auth");
 const router = express.Router();
 
-router.route("/")
+router.route("/", auth.verifyUser)
     .post((req, res, next) => {
         let serviceAds = new ServiceAds(req.body);
         // serviceAds.serviceProvider = req.users._id;
