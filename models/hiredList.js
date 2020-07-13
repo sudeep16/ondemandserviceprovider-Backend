@@ -1,23 +1,27 @@
 const mongoose = require("mongoose");
 
 const hiredListSchema = new mongoose.Schema({
-    paymentMethod:{
+    paymentMethod: {
         type: String,
         required: true
     },
-    day:{
+    day: {
         type: String,
         required: true
     },
-    time:{
-        type:String,
+    time: {
+        type: String,
         required: true
     },
-    hiredBy:{
+    location: {
+        type: String,
+        required: true
+    },
+    hiredBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    hiredUsername:{
+    hiredUsername: {
         type: String,
         required: true
     }
