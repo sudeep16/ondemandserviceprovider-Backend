@@ -19,8 +19,6 @@ module.exports.verifyUser = ((req, res, next) => {
 
     User.findById(data._id)
         .then((users) => {
-            console.log(req.user);
-            console.log(users);
             req.user = users;
             next();
         });
