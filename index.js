@@ -6,6 +6,7 @@ const dotenv = require("dotenv").config();
 const userRouter = require("./routes/users");
 const serviceAdsRouter = require("./routes/serviceAds");
 const feedbacksRouter = require("./routes/feedbacks");
+const hiredListRouter = require("./routes/hiredList");
 const auth = require("./auth");
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.static(__dirname + "/public"));
 app.use("/users", userRouter);
 app.use("/serviceAds", auth.verifyUser, serviceAdsRouter);
 app.use("/feedbacks", auth.verifyUser, feedbacksRouter);
+app.use("/hiredList", auth.verifyUser, hiredListRouter);
 
 //database config
 mongoose.connect(process.env.URL, {
