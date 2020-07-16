@@ -63,7 +63,7 @@ router.post("/login", (req, res, next) => {
     }).catch(next);
 });
 
-router.route("/:firstName")
+router.route("/profile/:firstName")
     .get((req, res, next) => {
         User.find({ firstName: req.params.firstName })
             .then((user) => {
@@ -73,5 +73,19 @@ router.route("/:firstName")
                 next(err);
             });
     });
+
+//Get profile
+router.get("/profile", auth.verifyUser, (req, res, next) => {
+    console.log(req);
+    res.json({
+        _id: req.user._id,
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        address: req.user.address,
+        username: req.user.username,
+        email: req.user.email,
+        phone: req.user.phone
+    });
+});
 
 module.exports = router;
