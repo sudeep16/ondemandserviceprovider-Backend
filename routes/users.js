@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/users");
 const router = express.Router();
 const auth = require("../auth");
+const { replaceOne } = require("../models/users");
 
 //registration
 router.post("/register", (req, res, next) => {
@@ -76,7 +77,6 @@ router.route("/profile/:firstName")
 
 //Get profile
 router.get("/profile", auth.verifyUser, (req, res, next) => {
-    console.log(req);
     res.json({
         _id: req.user._id,
         firstName: req.user.firstName,
@@ -87,5 +87,22 @@ router.get("/profile", auth.verifyUser, (req, res, next) => {
         phone: req.user.phone
     });
 });
+
+router.route("/profile/:id", auth.verifyUser)
+    .put((req, res, next) => {
+        User.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true })
+            .then((reply) => {
+                console.log(req.params._id)
+                if (reply == null) throw new Error("User not found");
+                res.json(reply);
+            }).catch(next);
+    })
+    .delete((req, res, next) => {
+        User.findOneAndDelete({ _id: req.params.id })
+            .then((user) => {
+                if (user == null) throw new Error("User not found");
+                res.json(user);
+            }).catch(next);
+    });
 
 module.exports = router;
