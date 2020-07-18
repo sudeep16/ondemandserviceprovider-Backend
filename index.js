@@ -7,6 +7,7 @@ const userRouter = require("./routes/users");
 const serviceAdsRouter = require("./routes/serviceAds");
 const feedbacksRouter = require("./routes/feedbacks");
 const hiredListRouter = require("./routes/hiredList");
+const wishlistRouter = require("./routes/wishlist");
 const auth = require("./auth");
 
 const app = express();
@@ -21,6 +22,7 @@ app.use("/users", userRouter);
 app.use("/serviceAds", auth.verifyUser, serviceAdsRouter);
 app.use("/feedbacks", auth.verifyUser, feedbacksRouter);
 app.use("/hiredList", auth.verifyUser, hiredListRouter);
+app.use("/wishlist", auth.verifyUser, wishlistRouter);
 
 //database config
 mongoose.connect(process.env.URL, {
