@@ -7,6 +7,10 @@ const wishlistSchema = new mongoose.Schema({
         unique: true,
         minlength: 6,
         maxlength: 50
+    },
+    wishlistOf:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 });
 

@@ -7,6 +7,7 @@ router.route("/:username")
     .post((req, res, next) => {
         let wishlist = new Wishlist(req.body);
         wishlist.username = req.params.username;
+        wishlist.wishlistOf = req.user._id;
         wishlist.save()
             .then((wishlists) => {
                 res.statusCode = 201;
