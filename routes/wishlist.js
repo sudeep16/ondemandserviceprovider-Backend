@@ -13,14 +13,23 @@ router.route("/:username")
                 res.statusCode = 201;
                 res.json(wishlists);
             }).catch(next)
-    })
-    .get((req, res, next) => {
-        Wishlist.find({ username: req.params.username })
-            .then((wishlists) => {
-                res.json(wishlists);
-            })
-            .catch(next);
     });
+
+router.route("/")
+    .get((req, res, next) => {
+        Wishlist.find({ wishlistOf: req.user._id })
+        .then((wishlists)=>{
+            res.json(wishlists);
+        })
+        .catch(next);
+    });
+// .get((req, res, next) => {
+//     Wishlist.find({ username: req.params.username })
+//         .then((wishlists) => {
+//             res.json(wishlists);
+//         })
+//         .catch(next);
+// });
 
 
 
