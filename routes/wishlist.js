@@ -6,14 +6,31 @@ const router = express.Router();
 router.route("/:username")
     .post((req, res, next) => {
         let wishlist = new Wishlist(req.body);
-        let serviceAds = new ServiceAds();
-        wishlist.wishlistBy = req.params.username;
-        wishlist.wishlisted = serviceAds;
+        wishlist.username = req.params.username;
         wishlist.save()
             .then((wishlists) => {
                 res.statusCode = 201;
                 res.json(wishlists);
             }).catch(next)
+    })
+    .get((req, res, next) => {
+        Wishlist.find({ username: req.params.username })
+            .then((wishlists) => {
+                res.json(wishlists);
+            })
+            .catch(next);
     });
+
+
+
+// router.route("/")
+//     .get((req, res, next) => {
+//         Wishlist.findById()
+//             .populate("wishlisted", "category")
+//             .then((wishlists) => {
+//                 res.json(wishlists);
+//             })
+//             .catch(next);
+//     });
 
 module.exports = router;

@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
 
 const wishlistSchema = new mongoose.Schema({
-    wishlistBy: {
+    username: {
         type: String,
-        required: true
-    },
-    wishlisted: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "ServiceAds"
+        required: true,
+        unique: true,
+        minlength: 6,
+        maxlength: 50
     }
 });
 
