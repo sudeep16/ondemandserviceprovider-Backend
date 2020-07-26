@@ -64,9 +64,10 @@ router.post("/login", (req, res, next) => {
     }).catch(next);
 });
 
-router.route("/profile/:firstName")
+router.route("/profile/:firstletter")
     .get((req, res, next) => {
-        User.find({ firstName: req.params.firstName })
+        var firstletter = req.params.firstletter;
+        User.find({ username: { $regex: '^' + firstletter, $options: 'i' } })
             .then((user) => {
                 res.json(user);
             })

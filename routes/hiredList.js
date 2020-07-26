@@ -17,6 +17,7 @@ router.route("/:username")
 router.route("/pending")
     .get((req, res, next) => {
         HiredList.find({ hiredUsername: req.user.username })
+            .populate ("hiredBy","username")
             .then((hiredList) => {
                 res.json(hiredList);
             })
