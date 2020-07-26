@@ -1,5 +1,6 @@
 const express = require("express");
 const HiredList = require("../models/hiredList");
+const hiredList = require("../models/hiredList");
 const router = express.Router();
 
 router.route("/:username")
@@ -14,4 +15,12 @@ router.route("/:username")
             }).catch(next)
     })
 
+router.route("/id/:id")
+    .get((req, res, next) => {
+        HiredList.find({ hiredBy: req.params.id })
+        .then((hiredList)=>{
+            res.json(hiredList);
+        })
+        .catch(next);
+    });
 module.exports = router;

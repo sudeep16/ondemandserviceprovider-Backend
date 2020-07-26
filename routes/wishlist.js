@@ -1,6 +1,5 @@
 const express = require("express");
 const Wishlist = require("../models/wishlist");
-const ServiceAds = require("../models/serviceAds");
 const router = express.Router();
 
 router.route("/:username")
