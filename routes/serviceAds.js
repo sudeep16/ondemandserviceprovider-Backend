@@ -34,4 +34,12 @@ router.route("/:category")
             });
     });
 
+router.route("/mypost")
+    .get((req, res, next) => {  
+        ServiceAds.find({ adOwner: req.user._id })
+            .then((serviceAds) => {
+                res.json(serviceAds);
+            }).catch(next);
+    })
+
 module.exports = router;

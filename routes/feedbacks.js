@@ -1,5 +1,6 @@
 const express = require("express");
 const Feedbacks = require("../models/feedbacks");
+const feedbacks = require("../models/feedbacks");
 const router = express.Router();
 
 router.route("/")
@@ -12,6 +13,14 @@ router.route("/")
             .catch((err) => {
                 next(err);
             });
+    });
+
+router.route("/myfeedbacks")
+    .get((req, res, next) => {
+        Feedbacks.find({ commentOn: req.user.username })
+            .then((feedbacks) => {
+                res.json(feedbacks);
+            }).catch(next);
     });
 
 router.route("/:username")
