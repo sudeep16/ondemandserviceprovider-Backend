@@ -37,6 +37,7 @@ router.route("/:category")
 router.route("/mypost/services")
     .get((req, res, next) => {  
         ServiceAds.find({ adOwner: req.user._id })
+        .populate("adOwner", ["username", "address", "phone"])
             .then((serviceAds) => {
                 res.json(serviceAds);
             }).catch(next);
