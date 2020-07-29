@@ -34,7 +34,7 @@ router.route("/:category")
             });
     });
 
-router.route("/mypost")
+router.route("/mypost/services")
     .get((req, res, next) => {  
         ServiceAds.find({ adOwner: req.user._id })
             .then((serviceAds) => {
