@@ -4,7 +4,10 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/users");
 const router = express.Router();
 const auth = require("../auth");
-const { replaceOne } = require("../models/users");
+const ServiceAds = require("../models/serviceAds");
+const Feedbacks = require("../models/feedbacks");
+const serviceAds = require("../models/serviceAds");
+const feedbacks = require("../models/feedbacks");
 
 //registration
 router.post("/register", (req, res, next) => {
@@ -99,6 +102,16 @@ router.route("/profile/:id", auth.verifyUser)
             }).catch(next);
     })
     .delete((req, res, next) => {
+        Feedbacks.findOneAndDelete({ commentBy: req.params.id })
+            .then((feedbacks) => {
+                if (feedbacks == null) throw new Error("Feedbacks not found")
+            }).catch(next)
+
+        ServiceAds.findOneAndDelete({ adOwner: req.params.id })
+            .then((serviceAds) => {
+                if (serviceAds == null) throw new Error("Ads not found")
+            }).catch(next)
+
         User.findOneAndDelete({ _id: req.params.id })
             .then((user) => {
                 if (user == null) throw new Error("User not found");
