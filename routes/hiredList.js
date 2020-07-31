@@ -1,5 +1,6 @@
 const express = require("express");
 const HiredList = require("../models/hiredList");
+const hiredList = require("../models/hiredList");
 const router = express.Router();
 
 router.route("/:username")
@@ -15,12 +16,22 @@ router.route("/:username")
     })
 
 router.route("/pending")
+    // let pendingCount = db.HiredList.count({ hiredUsername: req.user.username })
     .get((req, res, next) => {
         HiredList.find({ hiredUsername: req.user.username })
-            .populate ("hiredBy","username")
+            .populate("hiredBy", "username")
             .then((hiredList) => {
                 res.json(hiredList);
             })
             .catch(next);
     });
+
+router.route("/pendingCount")
+    .get((req, res, next) => {
+        HiredList.count({ hiredUsername: req.user.username })
+            .then((hiredList) => {
+                res.json(hiredList);
+            })
+            .catch(next);
+    })
 module.exports = router;

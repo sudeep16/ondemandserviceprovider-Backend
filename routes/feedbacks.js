@@ -18,6 +18,7 @@ router.route("/")
 router.route("/myfeedbacks")
     .get((req, res, next) => {
         Feedbacks.find({ commentOn: req.user.username })
+            .populate("commentBy", ["username"])
             .then((feedbacks) => {
                 res.json(feedbacks);
             }).catch(next);
