@@ -79,6 +79,17 @@ router.route("/profile/:firstletter")
             });
     });
 
+router.route("/profileByUsername/:username")
+    .get((req, res, next) => {
+        User.find({ username: req.params.username })
+            .then((user) => {
+                res.json(user);
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
+
 //Get profile
 router.get("/profile", auth.verifyUser, (req, res, next) => {
     res.json({
