@@ -1,6 +1,5 @@
 const express = require("express");
 const Feedbacks = require("../models/feedbacks");
-const feedbacks = require("../models/feedbacks");
 const router = express.Router();
 
 router.route("/")

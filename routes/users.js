@@ -6,8 +6,6 @@ const router = express.Router();
 const auth = require("../auth");
 const ServiceAds = require("../models/serviceAds");
 const Feedbacks = require("../models/feedbacks");
-const serviceAds = require("../models/serviceAds");
-const feedbacks = require("../models/feedbacks");
 
 //registration
 router.post("/register", (req, res, next) => {
@@ -67,6 +65,7 @@ router.post("/login", (req, res, next) => {
     }).catch(next);
 });
 
+//Search by firstname
 router.route("/profile/:firstletter")
     .get((req, res, next) => {
         var firstletter = req.params.firstletter;
@@ -79,6 +78,7 @@ router.route("/profile/:firstletter")
             });
     });
 
+//Get by username
 router.route("/profileByUsername/:username")
     .get((req, res, next) => {
         User.find({ username: req.params.username })
@@ -103,6 +103,7 @@ router.get("/profile", auth.verifyUser, (req, res, next) => {
     });
 });
 
+//Update and delete by ID
 router.route("/profile/:id", auth.verifyUser)
     .put((req, res, next) => {
         User.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true })
@@ -112,6 +113,7 @@ router.route("/profile/:id", auth.verifyUser)
                 res.json(reply);
             }).catch(next);
     })
+    //Delete every data of user
     .delete((req, res, next) => {
         Feedbacks.findOneAndDelete({ commentBy: req.params.id })
             .then((feedbacks) => {
