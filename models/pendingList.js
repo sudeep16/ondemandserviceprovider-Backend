@@ -2,10 +2,8 @@ const mongoose = require("mongoose");
 
 const pendingListSchema = new mongoose.Schema({
     accept:{
-        type: String
-    },
-    decline:{
-        type: String
+        type: Boolean,
+        require: true
     },
     customerID: {
         type: String,

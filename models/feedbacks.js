@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const feedbacksSchema = new mongoose.Schema({
     rating: {
-        type: String,
+        type: Number,
         required: true
     },
     comment: {
