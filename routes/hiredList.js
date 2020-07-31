@@ -28,7 +28,7 @@ router.route("/pending")
 
 router.route("/pendingCount")
     .get((req, res, next) => {
-        HiredList.count({ hiredUsername: req.user.username })
+        HiredList.countDocuments({ hiredUsername: req.user.username })
             .then((hiredList) => {
                 res.json(hiredList);
             })
