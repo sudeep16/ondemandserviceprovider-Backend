@@ -1,5 +1,6 @@
 const express = require("express");
 const ServiceAds = require("../models/serviceAds");
+const serviceAds = require("../models/serviceAds");
 const router = express.Router();
 
 router.route("/")
@@ -35,12 +36,21 @@ router.route("/:category")
     });
 
 router.route("/mypost/services")
-    .get((req, res, next) => {  
+    .get((req, res, next) => {
         ServiceAds.find({ adOwner: req.user._id })
-        .populate("adOwner", ["username", "address", "phone"])
+            .populate("adOwner", ["username", "address", "phone"])
             .then((serviceAds) => {
                 res.json(serviceAds);
             }).catch(next);
     })
+
+    router.route("/delete/:id")
+    .delete((req, res, next) => {
+        ServiceAds.findOneAndDelete({ _id: req.params.id })
+            .then((serviceAds) => {
+                res.json(serviceAds)
+            }).catch(next);
+    })
+
 
 module.exports = router;
