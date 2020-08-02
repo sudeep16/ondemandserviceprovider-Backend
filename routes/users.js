@@ -81,9 +81,16 @@ router.route("/profile/:firstletter")
 //Get by username
 router.route("/profileByUsername/:username")
     .get((req, res, next) => {
-        User.find({ username: req.params.username })
+        User.findOne({ username: req.params.username })
             .then((user) => {
-                res.json(user);
+                res.json({
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    username: user.username,
+                    address: user.address,
+                    email: user.email,
+                    phone: user.phone
+                });
             })
             .catch((err) => {
                 next(err);
