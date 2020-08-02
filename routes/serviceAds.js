@@ -42,9 +42,18 @@ router.route("/mypost/services")
             .then((serviceAds) => {
                 res.json(serviceAds);
             }).catch(next);
-    })
+    });
 
-    router.route("/delete/:id")
+router.route("/postById/:id")
+    .get((req, res, next) => {
+        ServiceAds.find({ adOwner: req.params.id })
+            .populate("adOwner", ["username", "address", "phone"])
+            .then((serviceAds) => {
+                res.json(serviceAds);
+            }).catch(next);
+    });
+
+router.route("/deleteMyPost/:id")
     .delete((req, res, next) => {
         ServiceAds.findOneAndDelete({ _id: req.params.id })
             .then((serviceAds) => {

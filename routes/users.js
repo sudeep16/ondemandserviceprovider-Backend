@@ -84,6 +84,7 @@ router.route("/profileByUsername/:username")
         User.findOne({ username: req.params.username })
             .then((user) => {
                 res.json({
+                    _id : user._id,
                     firstName: user.firstName,
                     lastName: user.lastName,
                     username: user.username,
