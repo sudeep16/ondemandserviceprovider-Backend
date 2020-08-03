@@ -1,6 +1,5 @@
 const express = require("express");
 const ServiceAds = require("../models/serviceAds");
-const serviceAds = require("../models/serviceAds");
 const router = express.Router();
 
 router.route("/")
@@ -53,13 +52,26 @@ router.route("/postById/:id")
             }).catch(next);
     });
 
-router.route("/deleteMyPost/:id")
+router.route("/modifyMyPost/:id")
+    .get((req, res, next) => {
+        ServiceAds.findOne({ _id: req.params.id })
+            .then((serviceAds) => {
+                res.json(serviceAds);
+            }).catch(next);
+    })
     .delete((req, res, next) => {
         ServiceAds.findOneAndDelete({ _id: req.params.id })
             .then((serviceAds) => {
                 res.json(serviceAds)
             }).catch(next);
     })
+    .put((req, res, next) => {
+        ServiceAds.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true })
+            .then((serviceAds) => {
+                if (serviceAds == null) throw new Error("Service Ads not found");
+                res.json(serviceAds);
+            }).catch(next);
+    });
 
 
 module.exports = router;
