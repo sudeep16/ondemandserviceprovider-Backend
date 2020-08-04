@@ -14,4 +14,14 @@ router.route("/:username")
             }).catch(next);
     });
 
+router.route("/")
+    .get((req, res, next) => {
+        Pendings.find({ customerID: req.user.username })
+            .then((pendings) => {
+                res.json(pendings);
+            })
+            .catch(next);
+    });
+
+
 module.exports = router;
