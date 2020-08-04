@@ -1,5 +1,7 @@
 const express = require("express");
 const Pendings = require("../models/pendingList");
+const pendingList = require("../models/pendingList");
+const { route } = require("./serviceAds");
 const router = express.Router();
 
 router.route("/:username")
@@ -23,6 +25,5 @@ router.route("/")
             })
             .catch(next);
     });
-
 
 module.exports = router;

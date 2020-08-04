@@ -34,4 +34,12 @@ router.route("/pendingCount")
             })
             .catch(next);
     })
+router.route("/deleteHiredlist/:id")
+    .delete((req, res, next) => {
+        HiredList.findOneAndDelete({ _id: req.params.id })
+            .then((hiredList) => {
+                res.json(hiredList)
+            }).catch(next);
+    })
+
 module.exports = router;
