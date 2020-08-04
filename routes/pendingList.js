@@ -1,6 +1,5 @@
 const express = require("express");
 const Pendings = require("../models/pendingList");
-const { model } = require("mongoose");
 const router = express.Router();
 
 router.route("/:id")

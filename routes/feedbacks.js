@@ -23,6 +23,15 @@ router.route("/myfeedbacks")
             }).catch(next);
     });
 
+router.route("/myTotalFeedbacksCount")
+    .get((req, res, next) => {
+        Feedbacks.countDocuments({ commentOn: req.user.username })
+            .then((hiredList) => {
+                res.json(hiredList);
+            })
+            .catch(next);
+    })
+
 router.route("/:username")
     .post((req, res, next) => {
         let feedbacks = new Feedbacks(req.body);
