@@ -17,6 +17,7 @@ router.route("/:username")
 router.route("/")
     .get((req, res, next) => {
         Pendings.find({ customerID: req.user.username })
+            .populate("serviceID", "username")
             .then((pendings) => {
                 res.json(pendings);
             })
