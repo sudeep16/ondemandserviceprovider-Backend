@@ -1,5 +1,6 @@
 const express = require("express");
 const Wishlist = require("../models/wishlist");
+const hiredList = require("../models/hiredList");
 const router = express.Router();
 
 router.route("/:username")
@@ -22,6 +23,16 @@ router.route("/")
         })
         .catch(next);
     });
+
+router.route("/deletewishlist/:id")
+.delete((req,res,next)=>{
+    Wishlist.findOneAndDelete({_id: req.params.id})
+    .then((hiredList)=>{
+        res.json(hiredList)
+    }).catch(next);
+})    
+
+
 // .get((req, res, next) => {
 //     Wishlist.find({ username: req.params.username })
 //         .then((wishlists) => {
