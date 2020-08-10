@@ -29,5 +29,5 @@ router.route("/deletewishlist/:id")
             .then((hiredList) => {
                 res.json(hiredList)
             }).catch(next);
-    });s
+    });
 module.exports = router;
