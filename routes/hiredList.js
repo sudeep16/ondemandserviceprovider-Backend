@@ -1,8 +1,8 @@
 const express = require("express");
 const HiredList = require("../models/hiredList");
-const hiredList = require("../models/hiredList");
 const router = express.Router();
 
+//Hire service ad
 router.route("/:username")
     .post((req, res, next) => {
         let hiredList = new HiredList(req.body);
@@ -15,6 +15,7 @@ router.route("/:username")
             }).catch(next)
     })
 
+//GET pending list    
 router.route("/pending")
     // let pendingCount = db.HiredList.count({ hiredUsername: req.user.username })
     .get((req, res, next) => {
@@ -26,6 +27,7 @@ router.route("/pending")
             .catch(next);
     });
 
+//Total number of pending
 router.route("/pendingCount")
     .get((req, res, next) => {
         HiredList.countDocuments({ hiredUsername: req.user.username })
@@ -34,6 +36,8 @@ router.route("/pendingCount")
             })
             .catch(next);
     })
+
+//Delete pending request
 router.route("/deleteHiredlist/:id")
     .delete((req, res, next) => {
         HiredList.findOneAndDelete({ _id: req.params.id })

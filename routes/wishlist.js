@@ -1,6 +1,5 @@
 const express = require("express");
 const Wishlist = require("../models/wishlist");
-const hiredList = require("../models/hiredList");
 const router = express.Router();
 
 router.route("/:username")
@@ -18,39 +17,17 @@ router.route("/:username")
 router.route("/")
     .get((req, res, next) => {
         Wishlist.find({ wishlistOf: req.user._id })
-        .then((wishlists)=>{
-            res.json(wishlists);
-        })
-        .catch(next);
+            .then((wishlists) => {
+                res.json(wishlists);
+            })
+            .catch(next);
     });
 
 router.route("/deletewishlist/:id")
-.delete((req,res,next)=>{
-    Wishlist.findOneAndDelete({_id: req.params.id})
-    .then((hiredList)=>{
-        res.json(hiredList)
-    }).catch(next);
-})    
-
-
-// .get((req, res, next) => {
-//     Wishlist.find({ username: req.params.username })
-//         .then((wishlists) => {
-//             res.json(wishlists);
-//         })
-//         .catch(next);
-// });
-
-
-
-// router.route("/")
-//     .get((req, res, next) => {
-//         Wishlist.findById()
-//             .populate("wishlisted", "category")
-//             .then((wishlists) => {
-//                 res.json(wishlists);
-//             })
-//             .catch(next);
-//     });
-
+    .delete((req, res, next) => {
+        Wishlist.findOneAndDelete({ _id: req.params.id })
+            .then((hiredList) => {
+                res.json(hiredList)
+            }).catch(next);
+    });s
 module.exports = router;

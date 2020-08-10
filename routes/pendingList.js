@@ -1,9 +1,8 @@
 const express = require("express");
 const Pendings = require("../models/pendingList");
-const pendingList = require("../models/pendingList");
-const { route } = require("./serviceAds");
 const router = express.Router();
 
+//Request service provider for job
 router.route("/:username")
     .post((req, res, next) => {
         let pendings = new Pendings(req.body);
@@ -16,6 +15,7 @@ router.route("/:username")
             }).catch(next);
     });
 
+//GET pending list of service provider
 router.route("/")
     .get((req, res, next) => {
         Pendings.find({ customerID: req.user.username })

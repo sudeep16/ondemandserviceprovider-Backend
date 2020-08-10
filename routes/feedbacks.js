@@ -2,6 +2,7 @@ const express = require("express");
 const Feedbacks = require("../models/feedbacks");
 const router = express.Router();
 
+//GET all feedbacks populated by firstname and lastname of user who commented
 router.route("/")
     .get((req, res, next) => {
         Feedbacks.find()
@@ -14,6 +15,7 @@ router.route("/")
             });
     });
 
+//GET all feedbacks from customers of logged in service provider
 router.route("/myfeedbacks")
     .get((req, res, next) => {
         Feedbacks.find({ commentOn: req.user.username })
@@ -23,6 +25,7 @@ router.route("/myfeedbacks")
             }).catch(next);
     });
 
+//Total numbers of feedback
 router.route("/myTotalFeedbacksCount")
     .get((req, res, next) => {
         Feedbacks.countDocuments({ commentOn: req.user.username })
@@ -32,6 +35,7 @@ router.route("/myTotalFeedbacksCount")
             .catch(next);
     })
 
+//Give feedback to service ad in which username parameter is taken in front end
 router.route("/:username")
     .post((req, res, next) => {
         let feedbacks = new Feedbacks(req.body);

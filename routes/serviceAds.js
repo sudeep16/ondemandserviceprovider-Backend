@@ -3,6 +3,7 @@ const ServiceAds = require("../models/serviceAds");
 const router = express.Router();
 
 router.route("/")
+    //POST service ad by service provider
     .post((req, res, next) => {
         let serviceAds = new ServiceAds(req.body);
         serviceAds.adOwner = req.user._id;
@@ -12,6 +13,7 @@ router.route("/")
                 res.json(serviceAds);
             }).catch(next);
     })
+    //GET all service ads posted by logged in user
     .get((req, res, next) => {
         ServiceAds.find()
             .then((serviceAds) => {
@@ -22,6 +24,7 @@ router.route("/")
             });
     });
 
+//GET service ads by categories    
 router.route("/:category")
     .get((req, res, next) => {
         ServiceAds.find({ category: req.params.category })
@@ -34,6 +37,7 @@ router.route("/:category")
             });
     });
 
+//GET service ads posted by logged in user    
 router.route("/mypost/services")
     .get((req, res, next) => {
         ServiceAds.find({ adOwner: req.user._id })
@@ -43,6 +47,7 @@ router.route("/mypost/services")
             }).catch(next);
     });
 
+//GET service ads by ID
 router.route("/postById/:id")
     .get((req, res, next) => {
         ServiceAds.find({ adOwner: req.params.id })
@@ -53,6 +58,7 @@ router.route("/postById/:id")
     });
 
 router.route("/modifyMyPost/:id")
+    //GET id of particular service ad to perform deletion and update
     .get((req, res, next) => {
         ServiceAds.findOne({ _id: req.params.id })
             .then((serviceAds) => {
