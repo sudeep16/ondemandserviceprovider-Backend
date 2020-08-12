@@ -7,8 +7,6 @@ const auth = require("../auth");
 const ServiceAds = require("../models/serviceAds");
 const Feedbacks = require("../models/feedbacks");
 const HiredList = require("../models/hiredList");
-const hiredList = require("../models/hiredList");
-const { Error } = require("mongoose");
 
 //registration
 router.post("/register", (req, res, next) => {
@@ -136,10 +134,10 @@ router.route("/profile/:id", auth.verifyUser)
                 if (serviceAds == null) throw new Error("Ads not found")
             }).catch(next)
 
-        HiredList.findOneAndDelete({hiredBy: req.params.id})
-        .then((hiredList)=>{
-            if (hiredList == null) throw new Error("Hiredlist not found")
-        }).catch(next)
+        HiredList.findOneAndDelete({ hiredBy: req.params.id })
+            .then((hiredList) => {
+                if (hiredList == null) throw new Error("Hiredlist not found")
+            }).catch(next)
 
         User.findOneAndDelete({ _id: req.params.id })
             .then((user) => {
