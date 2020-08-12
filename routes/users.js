@@ -6,6 +6,9 @@ const router = express.Router();
 const auth = require("../auth");
 const ServiceAds = require("../models/serviceAds");
 const Feedbacks = require("../models/feedbacks");
+const HiredList = require("../models/hiredList");
+const hiredList = require("../models/hiredList");
+const { Error } = require("mongoose");
 
 //registration
 router.post("/register", (req, res, next) => {
@@ -84,7 +87,7 @@ router.route("/profileByUsername/:username")
         User.findOne({ username: req.params.username })
             .then((user) => {
                 res.json({
-                    _id : user._id,
+                    _id: user._id,
                     firstName: user.firstName,
                     lastName: user.lastName,
                     username: user.username,
@@ -132,6 +135,11 @@ router.route("/profile/:id", auth.verifyUser)
             .then((serviceAds) => {
                 if (serviceAds == null) throw new Error("Ads not found")
             }).catch(next)
+
+        HiredList.findOneAndDelete({hiredBy: req.params.id})
+        .then((hiredList)=>{
+            if (hiredList == null) throw new Error("Hiredlist not found")
+        }).catch(next)
 
         User.findOneAndDelete({ _id: req.params.id })
             .then((user) => {
