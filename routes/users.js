@@ -7,6 +7,8 @@ const auth = require("../auth");
 const ServiceAds = require("../models/serviceAds");
 const Feedbacks = require("../models/feedbacks");
 const HiredList = require("../models/hiredList");
+const Wishlist = require("../models/wishlist");
+const wishlist = require("../models/wishlist");
 
 //registration
 router.post("/register", (req, res, next) => {
@@ -124,25 +126,29 @@ router.route("/profile/:id", auth.verifyUser)
     })
     //Delete every data of user
     .delete((req, res, next) => {
-        Feedbacks.findOneAndDelete({ commentBy: req.params.id })
-            .then((feedbacks) => {
-                if (feedbacks == null) throw new Error("Feedbacks not found")
-            }).catch(next)
-
-        ServiceAds.findOneAndDelete({ adOwner: req.params.id })
-            .then((serviceAds) => {
-                if (serviceAds == null) throw new Error("Ads not found")
-            }).catch(next)
-
-        HiredList.findOneAndDelete({ hiredBy: req.params.id })
-            .then((hiredList) => {
-                if (hiredList == null) throw new Error("Hiredlist not found")
-            }).catch(next)
-
         User.findOneAndDelete({ _id: req.params.id })
             .then((user) => {
-                if (user == null) throw new Error("User not found");
-                res.json(user);
+                if (user == null) {
+                    throw new Error("User not found");
+                } else {
+                    Feedbacks.findOneAndDelete({ commentBy: req.params.id })
+                        .then((feedbacks) => {
+                            console.log(feedbacks);
+                        }).catch(next)
+                    Wishlist.findOneAndDelete({ username: user.username })
+                        .then((wishlist) => {
+                            console.log(wishlist);
+                        }).catch(next)
+                    ServiceAds.findOneAndDelete({ adOwner: req.params.id })
+                        .then((serviceAds) => {
+                            console.log(serviceAds);
+                        }).catch(next)
+                    HiredList.findOneAndDelete({ hiredBy: req.params.id })
+                        .then((hiredList) => {
+                            console.log(hiredList);
+                        }).catch(next)
+                    res.json(user);
+                }
             }).catch(next);
     });
 
